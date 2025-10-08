@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+        Height="700"
+        Width="400"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="40"
+        x:Class="ClatterCommunicator.MainWindow"
+        Title="ClatterCommunicator">
+    <DockPanel Height="35" VerticalAlignment="Top" FlowDirection="LeftToRight" Background="#29779E">
+        <Image Source="Assets/images/logo.png" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="10 0 0 0" Height="15" Width="20"></Image>
+        <Panel HorizontalAlignment="Stretch" IsHitTestVisible="False">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DCF3FF" FontSize="13" Margin="0 2 0 0">Clatter Communicator</TextBlock>
+        </Panel>
+        <DockPanel IsHitTestVisible="True" HorizontalAlignment="Right" FlowDirection="LeftToRight" HorizontalSpacing="10">
+            <LucideIcon Kind="Minus" Size="18" Margin="0 8 0 0" Foreground="#DCF3FF" />
+            <LucideIcon Kind="Square" Size="14" StrokeWidth="2.2" Foreground="#DCF3FF" />
+            <Panel IsHitTestVisible="True" Name="TitleBarXButton" PointerPressed="TitleBarXButton_OnPointerPressed"><LucideIcon Kind="X" Size="18" Foreground="#DCF3FF" Margin="0 0 10 0" /></Panel>
+        </DockPanel>
+    </DockPanel>
+</Window>
