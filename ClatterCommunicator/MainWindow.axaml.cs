@@ -28,7 +28,7 @@ public partial class MainWindow : Window
 
     private void TitleBarResizeButton_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        this.WindowState = this.WindowState == WindowState.FullScreen ? WindowState.Normal : WindowState.FullScreen;
+        this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
     }
 
     private void SignInButton_OnPointerReleased(object? sender, PointerReleasedEventArgs e)

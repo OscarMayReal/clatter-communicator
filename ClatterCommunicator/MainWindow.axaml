@@ -5,9 +5,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+		SystemDecorations="None"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
-        ExtendClientAreaTitleBarHeightHint="35"
+        ExtendClientAreaTitleBarHeightHint="0"
         x:Class="ClatterCommunicator.MainWindow"
         Icon="Assets/images/logo.png"
         Title="Sign In - Clatter Communicator">
