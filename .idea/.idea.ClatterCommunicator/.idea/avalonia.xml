@@ -3,6 +3,8 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="ClatterCommunicator/App.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
+        <entry key="ClatterCommunicator/ChatWindow.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
         <entry key="ClatterCommunicator/MainWindow.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
       </map>
     </option>

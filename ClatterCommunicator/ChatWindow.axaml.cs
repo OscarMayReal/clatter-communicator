@@ -4,9 +4,9 @@ using Avalonia.Input;
 
 namespace ClatterCommunicator;
 
-public partial class MainWindow : Window
+public partial class ChatWindow : Window
 {
-    public MainWindow()
+    public ChatWindow()
     {
         InitializeComponent();
     }
@@ -29,12 +29,5 @@ public partial class MainWindow : Window
     private void TitleBarResizeButton_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         this.WindowState = this.WindowState == WindowState.FullScreen ? WindowState.Normal : WindowState.FullScreen;
-    }
-
-    private void SignInButton_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
-    {
-        Console.WriteLine("New Chat Window");
-        var chatWindow = new ChatWindow();
-        chatWindow.Show();
     }
 }

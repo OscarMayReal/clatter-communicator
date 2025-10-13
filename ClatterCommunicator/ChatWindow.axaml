@@ -1,20 +1,20 @@
 <Window xmlns="https://github.com/avaloniaui"
-        Height="700"
-        Width="400"
+        Height="600"
+        Width="800"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="35"
-        x:Class="ClatterCommunicator.MainWindow"
+        x:Class="ClatterCommunicator.ChatWindow"
         Icon="Assets/images/logo.png"
         Title="Sign In - Clatter Communicator">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Height="35" VerticalAlignment="Top" FlowDirection="LeftToRight" Background="#29779E">
-            <Image Source="Assets/images/logo.png" HorizontalAlignment="Left" Margin="10 0 0 0" Height="15" Width="20"></Image>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DCF3FF" FontSize="13" Margin="0 2 0 0">Clatter Communicator</TextBlock>
+            <LucideIcon Kind="MessageSquare" Size="15" HorizontalAlignment="Left" Margin="10 0 0 0" Foreground="#DCF3FF" />
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DCF3FF" FontSize="13" Margin="0 2 0 0">Message - Clatter Communicator</TextBlock>
             <Border Name="TitleBarDraggable" PointerPressed="TitleBarDraggable_OnPointerPressed" Background="Transparent" HorizontalAlignment="Stretch"></Border>
             <DockPanel ZIndex="1" HorizontalAlignment="Right" FlowDirection="LeftToRight" HorizontalSpacing="10">
                 <Panel Name="TitleBarMinimizeButton" PointerReleased="TitleBarMinimizeButton_OnPointerReleased"><LucideIcon Kind="Minus" Size="18" Margin="0 8 0 0" Foreground="#DCF3FF" /></Panel>
@@ -36,7 +36,7 @@
                 <TextBox Margin="30 10 30 20"></TextBox>
                 <TextBlock Margin="30 0">Password</TextBlock>
                 <TextBox PasswordChar="•" Margin="30 10 30 20"></TextBox>
-                <Button Name="SignInButton" PointerReleased="SignInButton_OnPointerReleased" Margin="30 0">Sign In</Button>
+                <Button Margin="30 0">Sign In</Button>
             </StackPanel>
             <Border Name="MainPanelBorder">
             </Border>
