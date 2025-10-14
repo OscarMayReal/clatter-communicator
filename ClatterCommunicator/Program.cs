@@ -1,5 +1,7 @@
 ﻿using Avalonia;
 using System;
+using AvaloniaInside.Shell;
+using ReactiveUI.Avalonia;
 
 namespace ClatterCommunicator;
 

@@ -21,13 +21,20 @@
             <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
+        <PackageReference Include="AvaloniaInside.Shell" Version="1.3.2.2" />
         <PackageReference Include="C-sharp-livekit-sdk" Version="1.0.7" />
         <PackageReference Include="Lucide.Avalonia" Version="0.1.44" />
+        <PackageReference Include="ReactiveUI.Avalonia" Version="11.3.0" />
+        <PackageReference Include="RouteNav.Avalonia" Version="1.1.0.216" />
         <PackageReference Include="SocketIOClient" Version="3.1.2" />
     </ItemGroup>
     <ItemGroup>
       <Compile Update="ChatWindow.axaml.cs">
         <DependentUpon>ChatWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="MainView.axaml.cs">
+        <DependentUpon>MainView.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

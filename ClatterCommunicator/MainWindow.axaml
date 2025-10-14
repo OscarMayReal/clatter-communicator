@@ -1,11 +1,12 @@
 <Window xmlns="https://github.com/avaloniaui"
         Height="700"
         Width="400"
+        xmlns:routeNav="clr-namespace:RouteNav.Avalonia;assembly=RouteNav.Avalonia"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:clatterCommunicator="clr-namespace:ClatterCommunicator"
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
-		SystemDecorations="None"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="0"
@@ -24,21 +25,12 @@
             </DockPanel>
         </Grid>
         <Panel Name="MainPanel">
-            <StackPanel Name="MainPanelInner">
-                <TextBlock Margin="30" FontWeight="Light" FontSize="25">
-                    Clatter Communicator
-                </TextBlock>
-                <TextBlock Margin="30 0 0 20" Foreground="#29779E" FontSize="22">
-                    Sign In
-                </TextBlock>
-                <TextBlock Margin="30 0">URL</TextBlock>
-                <TextBox Margin="30 10 30 20">https://clatter.work</TextBox>
-                <TextBlock Margin="30 0">Username</TextBlock>
-                <TextBox Margin="30 10 30 20"></TextBox>
-                <TextBlock Margin="30 0">Password</TextBlock>
-                <TextBox PasswordChar="•" Margin="30 10 30 20"></TextBox>
-                <Button Name="SignInButton" PointerReleased="SignInButton_OnPointerReleased" Margin="30 0">Sign In</Button>
-            </StackPanel>
+            <Panel IsVisible="True" Name="LoginView">
+                <clatterCommunicator:LoginView OnLogin="LoginView_OnOnLogin"/>
+            </Panel>
+            <Panel IsVisible="False" Name="MainView">
+                <clatterCommunicator:MainView/>
+            </Panel>
             <Border Name="MainPanelBorder">
             </Border>
         </Panel>

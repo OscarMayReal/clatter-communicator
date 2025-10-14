@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+               x:Class="ClatterCommunicator.MainView">
+    <StackPanel Name="MainPanelInner" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Panel HorizontalAlignment="Stretch" Height="70">
+            <Grid Name="UserHeader" Background="#fafafa" >
+                <Border HorizontalAlignment="Left" Name="UserImageBorderHolder" Height="50" Width="50">
+                    <Panel VerticalAlignment="Center">
+                        <Image Source="Assets/images/userimage.png" Name="UserImage" Height="50" Width="50"/>
+                        <Border Name="UserImageBorder" Height="50" Width="50" />
+                    </Panel>
+                </Border>
+            </Grid>
+            <Border Name="UserHeaderBorder" Height="70" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        </Panel>
+    </StackPanel>
+    <UserControl.Styles>
+        <Style Selector="Border#UserHeaderBorder">
+            <Setter Property="BorderThickness" Value="0 0 0 1"></Setter>
+            <Setter Property="BorderBrush" Value="#e4e4e7"></Setter>
+        </Style>
+        <Style Selector="Border#UserImageBorderHolder">
+            <Setter Property="Margin" Value="13 0 0 0"></Setter>
+            <Setter Property="CornerRadius" Value="9999999"></Setter>
+            <Setter Property="ClipToBounds" Value="True"></Setter>
+        </Style>
+        <Style Selector="Border#UserImageBorder">
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="BorderBrush" Value="#e4e4e7"></Setter>
+            <Setter Property="CornerRadius" Value="9999999"></Setter>
+        </Style>
+    </UserControl.Styles>
+</UserControl>

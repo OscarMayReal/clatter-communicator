@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using RouteNav.Avalonia;
+using RouteNav.Avalonia.Stacks;
 
 namespace ClatterCommunicator;
 

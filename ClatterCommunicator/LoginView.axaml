@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:avalonia="clr-namespace:RouteNav.Avalonia;assembly=RouteNav.Avalonia"
+               mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+               x:Class="ClatterCommunicator.LoginView">
+    <StackPanel Name="MainPanelInner">
+        <TextBlock Margin="30" FontWeight="Light" FontSize="25">
+            Clatter Communicator
+        </TextBlock>
+        <TextBlock Margin="30 0 0 20" Foreground="#29779E" FontSize="22">
+            Sign In
+        </TextBlock>
+        <TextBlock Margin="30 0">URL</TextBlock>
+        <TextBox Margin="30 10 30 20">https://clatter.work</TextBox>
+        <TextBlock Margin="30 0">Username</TextBlock>
+        <TextBox Margin="30 10 30 20"></TextBox>
+        <TextBlock Margin="30 0">Password</TextBlock>
+        <TextBox PasswordChar="•" Margin="30 10 30 20"></TextBox>
+        <Button Name="SignInButton" Margin="30 0">Sign In</Button>
+    </StackPanel>
+</UserControl>

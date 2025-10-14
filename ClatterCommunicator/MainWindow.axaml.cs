@@ -1,6 +1,7 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 
 namespace ClatterCommunicator;
 
@@ -36,5 +37,11 @@ public partial class MainWindow : Window
         Console.WriteLine("New Chat Window");
         var chatWindow = new ChatWindow();
         chatWindow.Show();
+    }
+
+    private void LoginView_OnOnLogin(object? sender, RoutedEventArgs e)
+    {
+        this.LoginView.IsVisible = false;
+        this.MainView.IsVisible = true;
     }
 }
