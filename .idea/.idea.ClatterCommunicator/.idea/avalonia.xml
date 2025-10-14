@@ -8,6 +8,7 @@
         <entry key="ClatterCommunicator/LoginView.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
         <entry key="ClatterCommunicator/MainView.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
         <entry key="ClatterCommunicator/MainWindow.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
+        <entry key="ClatterCommunicator/splashscreen.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
       </map>
     </option>
   </component>

@@ -10,6 +10,7 @@
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="0"
+        WindowStartupLocation="CenterScreen"
         x:Class="ClatterCommunicator.MainWindow"
         Icon="Assets/images/logo.png"
         Title="Sign In - Clatter Communicator">

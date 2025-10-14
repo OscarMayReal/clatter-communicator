@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
+        x:Class="ClatterCommunicator.SplashScreen"
+        Width="400"
+        Background="#0079A2"
+        Height="250"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="0"
+        WindowStartupLocation="CenterScreen"
+        Title="SplashScreen">
+    <Panel Margin="25">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Foreground="white" FontSize="16">Quntem Open Source</TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Width="25" Height="25" Margin="0 0 10 0" Source="Assets/images/logo.png"></Image>
+            <TextBlock Foreground="White" FontSize="25">Clatter Communicator</TextBlock>
+        </StackPanel>
+    </Panel>
+</Window>

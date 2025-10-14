@@ -5,16 +5,20 @@
                mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
                x:Class="ClatterCommunicator.MainView">
     <StackPanel Name="MainPanelInner" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <Panel HorizontalAlignment="Stretch" Height="70">
-            <Grid Name="UserHeader" Background="#fafafa" >
+        <Panel HorizontalAlignment="Stretch" Height="80">
+            <StackPanel Orientation="Horizontal" Name="UserHeader" Background="#fafafa" >
                 <Border HorizontalAlignment="Left" Name="UserImageBorderHolder" Height="50" Width="50">
                     <Panel VerticalAlignment="Center">
                         <Image Source="Assets/images/userimage.png" Name="UserImage" Height="50" Width="50"/>
                         <Border Name="UserImageBorder" Height="50" Width="50" />
                     </Panel>
                 </Border>
-            </Grid>
-            <Border Name="UserHeaderBorder" Height="70" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <StackPanel VerticalAlignment="Center" Spacing="3" Margin="10">
+                    <TextBlock Name="UsernameTextBlock">Username</TextBlock>
+                    <TextBlock Name="StatusTextBlock">Status</TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <Border Name="UserHeaderBorder" Height="80" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         </Panel>
     </StackPanel>
     <UserControl.Styles>
@@ -23,7 +27,7 @@
             <Setter Property="BorderBrush" Value="#e4e4e7"></Setter>
         </Style>
         <Style Selector="Border#UserImageBorderHolder">
-            <Setter Property="Margin" Value="13 0 0 0"></Setter>
+            <Setter Property="Margin" Value="18 0 0 0"></Setter>
             <Setter Property="CornerRadius" Value="9999999"></Setter>
             <Setter Property="ClipToBounds" Value="True"></Setter>
         </Style>
@@ -31,6 +35,14 @@
             <Setter Property="BorderThickness" Value="1"></Setter>
             <Setter Property="BorderBrush" Value="#e4e4e7"></Setter>
             <Setter Property="CornerRadius" Value="9999999"></Setter>
+        </Style>
+        <Style Selector="TextBlock#UsernameTextBlock">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="Foreground" Value="#666666"></Setter>
+        </Style>
+        <Style Selector="TextBlock#StatusTextBlock">
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="Foreground" Value="#999999"></Setter>
         </Style>
     </UserControl.Styles>
 </UserControl>
