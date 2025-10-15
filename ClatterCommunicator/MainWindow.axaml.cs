@@ -39,7 +39,7 @@ public partial class MainWindow : Window
         chatWindow.Show();
     }
 
-    private void LoginView_OnOnLogin(object? sender, RoutedEventArgs e)
+    private void LoginView_OnOnLogin(object? sender, LoginView.LoggedInSessionEventArgs e)
     {
         this.LoginView.IsVisible = false;
         this.MainView.IsVisible = true;

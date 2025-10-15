@@ -29,9 +29,7 @@
             <Panel IsVisible="True" Name="LoginView">
                 <clatterCommunicator:LoginView OnLogin="LoginView_OnOnLogin"/>
             </Panel>
-            <Panel IsVisible="False" Name="MainView">
-                <clatterCommunicator:MainView/>
-            </Panel>
+            <clatterCommunicator:MainView Name="MainView" IsVisible="False"/>
             <Border Name="MainPanelBorder">
             </Border>
         </Panel>

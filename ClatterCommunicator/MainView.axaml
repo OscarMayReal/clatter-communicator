@@ -2,15 +2,17 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+               xmlns:clatterCommunicator="clr-namespace:ClatterCommunicator"
                mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
                x:Class="ClatterCommunicator.MainView">
-    <StackPanel Name="MainPanelInner" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <StackPanel EffectiveViewportChanged="MainPanelInner_OnEffectiveViewportChanged" Name="MainPanelInner" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Panel HorizontalAlignment="Stretch" Height="80">
             <StackPanel Orientation="Horizontal" Name="UserHeader" Background="#fafafa" >
-                <Border HorizontalAlignment="Left" Name="UserImageBorderHolder" Height="50" Width="50">
+                <Border HorizontalAlignment="Left" Name="UserImageBorderHolder" Height="45" Width="45">
                     <Panel VerticalAlignment="Center">
-                        <Image Source="Assets/images/userimage.png" Name="UserImage" Height="50" Width="50"/>
-                        <Border Name="UserImageBorder" Height="50" Width="50" />
+                        <Image Name="UserImage" Height="45" Width="45"/>
+                        <Border Name="UserImageBorder" Height="45" Width="45" />
                     </Panel>
                 </Border>
                 <StackPanel VerticalAlignment="Center" Spacing="3" Margin="10">
@@ -20,21 +22,46 @@
             </StackPanel>
             <Border Name="UserHeaderBorder" Height="80" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         </Panel>
+        <Panel HorizontalAlignment="Stretch" Height="50">
+            <StackPanel Margin="20 0" Orientation="Horizontal" Name="TabsHeader" Background="#ffffff" Spacing="15">
+                <clatterCommunicator:MainViewTab PointerReleased="InputElement_OnPointerReleased" iconSize="16" icon="MessageSquare" label="Chat" />
+                <clatterCommunicator:MainViewTab icon="Video" iconSize="20" label="Meetings" />
+            </StackPanel>
+            <Border Name="TabsHeaderBorder" Height="50" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        </Panel>
+        <TreeView Padding="10">
+            <TreeViewItem Classes="MainViewTreeItem" IsExpanded="True" Header="Channels">
+                <TreeViewItem Classes="MainViewTreeItem" Header="#General" />
+                <TreeViewItem Classes="MainViewTreeItem" Header="#Fun" />
+                <TreeViewItem Classes="MainViewTreeItem" Header="#Projectx" />
+            </TreeViewItem>
+            <TreeViewItem IsExpanded="True" Header="Direct messages">
+                <TreeViewItem Classes="MainViewTreeItem" Header="Message 1" />
+            </TreeViewItem>
+        </TreeView>
     </StackPanel>
     <UserControl.Styles>
         <Style Selector="Border#UserHeaderBorder">
             <Setter Property="BorderThickness" Value="0 0 0 1"></Setter>
             <Setter Property="BorderBrush" Value="#e4e4e7"></Setter>
         </Style>
+        <Style Selector="TreeViewItem.MainViewTreeItem">
+            <Setter Property="Padding" Value="0 5"></Setter>
+            <Setter Property="CornerRadius" Value="5"></Setter>
+        </Style>
+        <Style Selector="Border#TabsHeaderBorder">
+            <Setter Property="BorderThickness" Value="0 0 0 1"></Setter>
+            <Setter Property="BorderBrush" Value="#e4e4e7"></Setter>
+        </Style>
         <Style Selector="Border#UserImageBorderHolder">
             <Setter Property="Margin" Value="18 0 0 0"></Setter>
-            <Setter Property="CornerRadius" Value="9999999"></Setter>
+            <Setter Property="CornerRadius" Value="10"></Setter>
             <Setter Property="ClipToBounds" Value="True"></Setter>
         </Style>
         <Style Selector="Border#UserImageBorder">
             <Setter Property="BorderThickness" Value="1"></Setter>
             <Setter Property="BorderBrush" Value="#e4e4e7"></Setter>
-            <Setter Property="CornerRadius" Value="9999999"></Setter>
+            <Setter Property="CornerRadius" Value="10"></Setter>
         </Style>
         <Style Selector="TextBlock#UsernameTextBlock">
             <Setter Property="FontSize" Value="16"></Setter>
