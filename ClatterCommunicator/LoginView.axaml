@@ -14,7 +14,7 @@
         </TextBlock>
         <StackPanel Name="SignInPanel">
             <TextBlock Margin="30 0">URL</TextBlock>
-            <TextBox Name="UrlBox" Margin="30 10 30 20">https://clatter.work</TextBox>
+            <TextBox Name="UrlBox" Margin="30 10 30 20">https://beta.clatter.work</TextBox>
             <TextBlock Margin="30 0">Username</TextBlock>
             <TextBox Name="UsernameBox" Margin="30 10 30 20"></TextBox>
             <TextBlock Margin="30 0">Password</TextBlock>
@@ -22,7 +22,7 @@
         </StackPanel>
         <StackPanel Name="ExistingSessionPanel" IsVisible="False">
             <TextBlock Margin="30 0">URL</TextBlock>
-            <TextBox Name="ExistingUrlBox" Margin="30 10 30 20">https://clatter.work</TextBox>
+            <TextBox Name="ExistingUrlBox" Margin="30 10 30 20">https://beta.clatter.work</TextBox>
             <TextBlock Margin="30 0">Username</TextBlock>
             <TextBox Name="ExistingUsernameBox" Margin="30 10 30 10" IsEnabled="False"></TextBox>
             <StackPanel Orientation="Horizontal">

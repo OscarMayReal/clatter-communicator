@@ -54,7 +54,7 @@ public partial class LoginView : UserControl
         {
             Method = HttpMethod.Post,
             RequestUri = new Uri(url + "/api/auth/sign-in/email"),
-            Content = new StringContent("{\"email\":\"" + username.Split(":")[0] + "\",\"password\":\"" + password + "\"}")
+            Content = new StringContent("{\"email\":\"" + username.Split("::")[0] + "\",\"password\":\"" + password + "\"}")
             {
                 Headers =
                 {
@@ -74,7 +74,31 @@ public partial class LoginView : UserControl
             byte[] bytes = new UTF8Encoding(true).GetBytes(json);
             fileopen.Write(bytes, 0, bytes.Length);
             fileopen.Close();
-            OnLogin?.Invoke(this, new LoggedInSessionEventArgs(session: decodedjson));
+            var newhttpclient = new HttpClient();
+            newhttpclient.DefaultRequestHeaders.Accept.Clear();
+            newhttpclient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            Console.WriteLine(username.Split("::")[1]);
+            Console.WriteLine(decodedjson.token);
+            var newrequest = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri("https://beta.clatter.work/api/auth/organization/set-active"),
+                Content = new StringContent("{\"organizationSlug\":\"" + username.Split("::")[1] + "\"}")
+                {
+                    Headers =
+                    {
+                        ContentType = new MediaTypeHeaderValue("application/json")
+                    }
+                },
+                Headers =
+                {
+                    { "Authorization", $"Bearer {decodedjson?.token}" }
+                }
+            };
+            using (var newresponse = await newhttpclient.SendAsync(newrequest))
+            {
+                OnLogin?.Invoke(this, new LoggedInSessionEventArgs(session: decodedjson));   
+            }
         }
     }
 

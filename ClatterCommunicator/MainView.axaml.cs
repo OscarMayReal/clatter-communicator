@@ -29,15 +29,38 @@ public partial class MainView : UserControl
         public string createdAt { get; set; }
         public object metadata { get; set; }
         public string id { get; set; }
+        public string[] invitations { get; set; }
+        public member[]  members { get; set; }
+        public String teams { get; set; }
+    }
+    
+    public class member
+    {
+        public string organizationId { get; set; }
+        public string userId { get; set; }
+        public string role { get; set; }
+        public string createdAt { get; set; }
+        public string id { get; set; }
+        public User user { get; set; }
     }
 
-    private async Task<Workspace[]> ListWorkspace(string token)
+    public class User
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
+        public object image { get; set; }
+    }
+
+
+
+    private async Task<Workspace> ListWorkspace(string token)
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri("https://beta.clatter.work/api/auth/organization/list"),
+            RequestUri = new Uri("https://beta.clatter.work/api/auth/organization/get-full-organization"),
             Headers =
             {
                 { "Authorization", $"Bearer {token}" }
@@ -47,15 +70,15 @@ public partial class MainView : UserControl
         {
             response.EnsureSuccessStatusCode();
             var body = await response.Content.ReadAsStringAsync();
-            Workspace[] workspaces = JsonSerializer.Deserialize<Workspace[]>(body);
-            return workspaces;
+            Workspace workspace = JsonSerializer.Deserialize<Workspace>(body);
+            return workspace;
         }
     }
 
     private async void SetWorkspaceTitle(String token)
     {
-        Workspace[] workspaces = await ListWorkspace(token);
-        this.StatusTextBlock.Text = workspaces[0].name;
+        Workspace workspace = await ListWorkspace(token);
+        this.StatusTextBlock.Text = workspace.name;
     }
 
     private void MainPanelInner_OnEffectiveViewportChanged(object? sender, EffectiveViewportChangedEventArgs e)
