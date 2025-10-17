@@ -1,3 +1,5 @@
+using Avalonia.Media;
+
 namespace ClatterCommunicator.ClatterClasses;
 
 public class Message
@@ -14,4 +16,8 @@ public class Message
     public bool pinned { get; set; }
     public object[] reactions { get; set; }
     public Message[] childmessages { get; set; }
+    public Avalonia.Media.FlowDirection isOwnMessage { get; set; }
+    public IBrush background { get; set; }
+    public IBrush foreground { get; set; }
+    public bool HideInfo {get; set;}
 }

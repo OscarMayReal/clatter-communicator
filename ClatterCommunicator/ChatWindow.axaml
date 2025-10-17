@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:clatterClasses="clr-namespace:ClatterCommunicator.ClatterClasses"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
@@ -32,7 +33,19 @@
                     </Border>
                     <Border Margin="0 65 0 80" VerticalAlignment="Stretch">
                         <ListBox Name="MessageArea">
-                            <ListBoxItem>Test</ListBoxItem>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type clatterClasses:Message}">
+                                    <StackPanel FlowDirection="{Binding isOwnMessage}" Margin=" 0 10 0 0" Spacing="10" Orientation="Horizontal">
+                                        <Border IsVisible="{Binding !HideInfo}" BorderBrush="#e4e4e7" BorderThickness="1">
+                                            <Image Width="38" Height="38" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Assets/images/userimage.png"/>
+                                        </Border>
+                                        <Border Width="40" IsVisible="{Binding HideInfo}"></Border>
+                                        <StackPanel Background="{Binding background}">
+                                            <TextBlock Height="20" FontSize="16" TextAlignment="Center" Margin="10" Foreground="{Binding foreground}" Text="{Binding content}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
                         </ListBox>
                     </Border>
                     <Border Name="InputClusterBorder" VerticalAlignment="Bottom">
