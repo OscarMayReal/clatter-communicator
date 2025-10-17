@@ -4,17 +4,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="35"
         x:Class="ClatterCommunicator.ChatWindow"
         Icon="Assets/images/logo.png"
-        Title="Sign In - Clatter Communicator">
+        Title="Channel - Clatter Communicator">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Height="35" VerticalAlignment="Top" FlowDirection="LeftToRight" Background="#29779E">
             <LucideIcon Kind="MessageSquare" Size="15" HorizontalAlignment="Left" Margin="10 0 0 0" Foreground="#DCF3FF" />
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DCF3FF" FontSize="13" Margin="0 2 0 0">Message - Clatter Communicator</TextBlock>
+            <TextBlock Name="TitleBarText" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#DCF3FF" FontSize="13" Margin="0 2 0 0">Message - Clatter Communicator</TextBlock>
             <Border Name="TitleBarDraggable" PointerPressed="TitleBarDraggable_OnPointerPressed" Background="Transparent" HorizontalAlignment="Stretch"></Border>
             <DockPanel ZIndex="1" HorizontalAlignment="Right" FlowDirection="LeftToRight" HorizontalSpacing="10">
                 <Panel Name="TitleBarMinimizeButton" PointerReleased="TitleBarMinimizeButton_OnPointerReleased"><LucideIcon Kind="Minus" Size="18" Margin="0 8 0 0" Foreground="#DCF3FF" /></Panel>
@@ -23,21 +23,33 @@
             </DockPanel>
         </Grid>
         <Panel Name="MainPanel">
-            <StackPanel Name="MainPanelInner">
-                <TextBlock Margin="30" FontWeight="Light" FontSize="25">
-                    Clatter Communicator
-                </TextBlock>
-                <TextBlock Margin="30 0 0 20" Foreground="#29779E" FontSize="22">
-                    Sign In
-                </TextBlock>
-                <TextBlock Margin="30 0">URL</TextBlock>
-                <TextBox Margin="30 10 30 20">https://clatter.work</TextBox>
-                <TextBlock Margin="30 0">Username</TextBlock>
-                <TextBox Margin="30 10 30 20"></TextBox>
-                <TextBlock Margin="30 0">Password</TextBlock>
-                <TextBox PasswordChar="•" Margin="30 10 30 20"></TextBox>
-                <Button Margin="30 0">Sign In</Button>
-            </StackPanel>
+            <Panel Name="MainPanelInner" Background="#fafafa" Margin="3 0 3 3" VerticalAlignment="Stretch">
+                <Panel Margin="20 0" VerticalAlignment="Stretch">
+                    <Border VerticalAlignment="Top" Height="65" Name="HeaderBorder">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Name="HeaderChannelName" FontSize="16" Foreground="#666666">#ChannelName</TextBlock>
+                        </StackPanel>
+                    </Border>
+                    <Border Margin="0 65 0 80" VerticalAlignment="Stretch">
+                        <ListBox Name="MessageArea">
+                            <ListBoxItem>Test</ListBoxItem>
+                        </ListBox>
+                    </Border>
+                    <Border Name="InputClusterBorder" VerticalAlignment="Bottom">
+                        <Panel Height="80" VerticalAlignment="Bottom">
+                            <Panel HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Name="MessageInputBoxOuter" Height="40" Margin="0 0 60 0">
+                                <Panel Name="MessageInputBox">
+                                    <TextBox Name="MessageInputTextBox" Watermark="Send a message to #ChannelName"/>
+                                </Panel>
+                                <Border Name="MessageInputBoxBorder"/>
+                            </Panel>
+                            <Border Width="40" Height="40" HorizontalAlignment="Right" Name="SendButton">
+                                <LucideIcon Size="18" Foreground="#2A779E" Kind="SendHorizontal"></LucideIcon>
+                            </Border>
+                        </Panel>    
+                    </Border>
+                </Panel>
+            </Panel>
             <Border Name="MainPanelBorder">
             </Border>
         </Panel>
@@ -47,6 +59,59 @@
             <Setter Property="BorderThickness" Value="3 0 3 3" />
             <Setter Property="BorderBrush" Value="#29779E" />
             <Setter Property="CornerRadius" Value="{OnPlatform macOS='0, 0, 9, 9', Default='0, 0, 0, 0', x:TypeArguments=CornerRadius}" />
+        </Style>
+        <Style Selector="Border#InputClusterBorder">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="BorderThickness" Value="0 1 0 0"/>
+            <Setter Property="BorderBrush" Value="#e4e4e7"/>
+        </Style>
+        <Style Selector="Border#HeaderBorder">
+            <Setter Property="BorderThickness" Value="0 0 0 1"/>
+            <Setter Property="BorderBrush" Value="#e4e4e7"/>
+        </Style>
+        <Style Selector="Panel#MessageInputBox">
+            <Setter Property="Height" Value="40"/>
+        </Style>
+        <Style Selector="Panel#MessageInputBoxOuter">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style Selector="Border#MessageInputBoxBorder">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderBrush" Value="#e4e4e7"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style Selector="Border#SendButton">
+            <Setter Property="BorderBrush" Value="#2A779E"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="999"/>
+        </Style>
+        <Style Selector="TextBox#MessageInputTextBox">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="TextBox:focus#MessageInputTextBox /template/ Border#PART_BorderElement">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="3 0"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+        <Style Selector="ListBox#MessageArea">
+            <Setter Property="Background" Value="Transparent"></Setter>
+        </Style>
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+            <!-- <Setter Property="Background" Value="rgba(0,0,0,0.07)"/>	 -->
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>	
         </Style>
     </Window.Styles>
 </Window>

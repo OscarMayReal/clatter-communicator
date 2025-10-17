@@ -4,7 +4,9 @@
     <option name="projectPerEditor">
       <map>
         <entry key="ClatterCommunicator/App.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
+        <entry key="ClatterCommunicator/ChatPanel.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
         <entry key="ClatterCommunicator/ChatWindow.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
+        <entry key="ClatterCommunicator/DirectoryPanel.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
         <entry key="ClatterCommunicator/LoginView.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
         <entry key="ClatterCommunicator/MainView.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />
         <entry key="ClatterCommunicator/MainViewTab.axaml" value="ClatterCommunicator/ClatterCommunicator.csproj" />

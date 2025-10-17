@@ -1,14 +1,19 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Input;
+using ClatterCommunicator.ClatterClasses;
 
 namespace ClatterCommunicator;
 
 public partial class ChatWindow : Window
 {
-    public ChatWindow()
+    private Channel channel { get; set; }
+    public ChatWindow(Channel channel)
     {
         InitializeComponent();
+        this.TitleBarText.Text = $"#{channel.name} - Clatter Communicator";
+        this.HeaderChannelName.Text = "#" + channel.name;
+        this.channel = channel;
     }
 
     private void TitleBarDraggable_OnPointerPressed(object? sender, PointerPressedEventArgs e)

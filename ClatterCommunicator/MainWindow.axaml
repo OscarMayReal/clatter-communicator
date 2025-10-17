@@ -38,7 +38,7 @@
         <Style Selector="Border#MainPanelBorder">
             <Setter Property="BorderThickness" Value="3 0 3 3" />
             <Setter Property="BorderBrush" Value="#29779E" />
-            <Setter Property="CornerRadius" Value="{OnPlatform macOS='0, 0, 9, 9', Default='0, 0, 0, 0', x:TypeArguments=CornerRadius}" />
+            <Setter Property="CornerRadius" Value="{OnPlatform macOS='0, 0, 8, 8', Default='0, 0, 0, 0', x:TypeArguments=CornerRadius}" />
         </Style>
     </Window.Styles>
 </Window>

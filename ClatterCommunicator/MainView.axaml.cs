@@ -10,6 +10,7 @@ using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
+using ClatterCommunicator.ClatterClasses;
 using RouteNav.Avalonia;
 
 namespace ClatterCommunicator;
@@ -20,39 +21,6 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
     }
-    
-    public class Workspace
-    {
-        public string name { get; set; }
-        public string slug { get; set; }
-        public string logo { get; set; }
-        public string createdAt { get; set; }
-        public object metadata { get; set; }
-        public string id { get; set; }
-        public string[] invitations { get; set; }
-        public member[]  members { get; set; }
-        public String teams { get; set; }
-    }
-    
-    public class member
-    {
-        public string organizationId { get; set; }
-        public string userId { get; set; }
-        public string role { get; set; }
-        public string createdAt { get; set; }
-        public string id { get; set; }
-        public User user { get; set; }
-    }
-
-    public class User
-    {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public object image { get; set; }
-    }
-
-
 
     private async Task<Workspace> ListWorkspace(string token)
     {
@@ -71,6 +39,8 @@ public partial class MainView : UserControl
             response.EnsureSuccessStatusCode();
             var body = await response.Content.ReadAsStringAsync();
             Workspace workspace = JsonSerializer.Deserialize<Workspace>(body);
+            this.DirectoryPanel.UpdateDirectoryList(workspace?.members);
+            this.ChatPanel.SetChannels(workspace);
             return workspace;
         }
     }
@@ -104,9 +74,21 @@ public partial class MainView : UserControl
         }
     }
 
-    private void InputElement_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    private void ChatTab_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        var chatwindow = new ChatWindow();
-        chatwindow.Show();
+        this.DirectoryPanel.IsVisible = false;
+        this.ChatPanel.IsVisible = true;
+        this.ChatTab.state = "active";
+        this.DirectoryTab.state = "inactive";
+        this.MeetingsTab.state = "inactive";
+    }
+
+    private void DirectoryTab_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        this.DirectoryPanel.IsVisible = true;
+        this.ChatPanel.IsVisible = false;
+        this.ChatTab.state = "inactive";
+        this.DirectoryTab.state = "active";
+        this.MeetingsTab.state = "inactive";
     }
 }

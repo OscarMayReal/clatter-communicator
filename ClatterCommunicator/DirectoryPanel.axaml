@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:clatterCommunicator="clr-namespace:ClatterCommunicator"
+             xmlns:clatterClasses="clr-namespace:ClatterCommunicator.ClatterClasses"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="600"
+             x:Class="ClatterCommunicator.DirectoryPanel">
+    <ListBox SelectionMode="AlwaysSelected" Name="DirectoryListbox">
+        <ListBox.ItemTemplate>
+            <DataTemplate  DataType="{x:Type clatterClasses:Member}">
+                <Panel Height="65">
+                    <Border Height="65" BorderThickness="0 0 0 1" BorderBrush="#e4e4e7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Border>
+                    <StackPanel Orientation="Vertical" Margin="15 0" VerticalAlignment="Center">
+                        <TextBlock Foreground="#666666" FontSize="18" Text="{Binding user.name}"/>
+                        <TextBlock Foreground="#999999" FontSize="14" Text="{Binding user.email}"/>
+                    </StackPanel>
+                </Panel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+    <UserControl.Styles>
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="3 0"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+        <Style Selector="ListBox#DirectoryListbox">
+            <Setter Property="Background" Value="Transparent"></Setter>
+        </Style>
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+            <!-- <Setter Property="Background" Value="rgba(0,0,0,0.07)"/>	 -->
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="rgba(0,0,0,0.05)"/>	
+        </Style>
+    </UserControl.Styles>
+</UserControl>

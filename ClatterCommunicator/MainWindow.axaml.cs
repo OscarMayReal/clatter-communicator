@@ -31,14 +31,7 @@ public partial class MainWindow : Window
     {
         this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
     }
-
-    private void SignInButton_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
-    {
-        Console.WriteLine("New Chat Window");
-        var chatWindow = new ChatWindow();
-        chatWindow.Show();
-    }
-
+    
     private void LoginView_OnOnLogin(object? sender, LoginView.LoggedInSessionEventArgs e)
     {
         this.LoginView.IsVisible = false;

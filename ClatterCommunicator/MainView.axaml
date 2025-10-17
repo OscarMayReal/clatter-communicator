@@ -24,33 +24,16 @@
         </Panel>
         <Panel HorizontalAlignment="Stretch" Height="50">
             <StackPanel Margin="20 0" Orientation="Horizontal" Name="TabsHeader" Background="#ffffff" Spacing="15" HorizontalAlignment="Center">
-                <clatterCommunicator:MainViewTab state="active" PointerReleased="InputElement_OnPointerReleased" iconSize="16" icon="MessageSquare" label="Chat" />
-                <clatterCommunicator:MainViewTab icon="Video" iconSize="20" label="Meetings" />
-                <clatterCommunicator:MainViewTab icon="BookUser" iconSize="16" label="Directory" />
+                <clatterCommunicator:MainViewTab PointerReleased="ChatTab_OnPointerReleased" Name="ChatTab" state="active" iconSize="16" icon="MessageSquare" label="Chat" />
+                <clatterCommunicator:MainViewTab Name="MeetingsTab" state="inactive" icon="Video" iconSize="20" label="Meetings" />
+                <clatterCommunicator:MainViewTab PointerReleased="DirectoryTab_OnPointerReleased" Name="DirectoryTab" state="inactive" icon="BookUser" iconSize="16" label="Directory" />
             </StackPanel>
             <Border Name="TabsHeaderBorder" Height="50" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         </Panel>
-        <Panel Height="10"></Panel>
-        <Expander HorizontalAlignment="Stretch" Classes="ChatPanelExpander" Header="Channels (0)"></Expander>
-        <Expander HorizontalAlignment="Stretch" Classes="ChatPanelExpander" Header="Messages (0)"></Expander>
+        <clatterCommunicator:ChatPanel Name="ChatPanel" IsVisible="True"/>
+        <clatterCommunicator:DirectoryPanel Name="DirectoryPanel" IsVisible="False"/>
     </StackPanel>
     <UserControl.Styles>
-        <Style Selector="Expander.ChatPanelExpander">
-            <Setter Property="BorderBrush" Value="Transparent"></Setter>
-            <Setter Property="MinHeight" Value="30"></Setter>
-            <Setter Property="Background" Value="Transparent"></Setter>
-        </Style>
-        <Style Selector="Expander.ChatPanelExpander /template/ ToggleButton">
-            <Setter Property="BorderBrush" Value="Transparent"></Setter>
-            <Setter Property="Height" Value="30"></Setter>
-            <Setter Property="MinHeight" Value="35"></Setter>
-            <Setter Property="Foreground" Value="#29779E"></Setter>
-        </Style>
-        <Style Selector="Expander:pointerover .ChatPanelExpander /template/ ToggleButton">
-            <Setter Property="BorderBrush" Value="Transparent"></Setter>
-            <Setter Property="Height" Value="30"></Setter>
-            <Setter Property="MinHeight" Value="35"></Setter>
-        </Style>
         <Style Selector="Border#UserHeaderBorder">
             <Setter Property="BorderThickness" Value="0 0 0 1"></Setter>
             <Setter Property="BorderBrush" Value="#e4e4e7"></Setter>

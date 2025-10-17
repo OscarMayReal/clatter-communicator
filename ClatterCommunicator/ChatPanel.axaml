@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:clatterClasses="clr-namespace:ClatterCommunicator.ClatterClasses"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="600"
+             x:Class="ClatterCommunicator.ChatPanel">
+    <StackPanel Orientation="Vertical">
+        <Panel Height="10"></Panel>
+        <Expander HorizontalAlignment="Stretch" Classes="ChatPanelExpander" Header="Channels (0)" IsExpanded="True" Name="ChannelsExpander">
+            <ListBox DataContext="{x:Type clatterClasses:Channel}" SelectionChanged="ChannelListbox_OnSelectionChanged" Name="ChannelListbox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type clatterClasses:Channel}">
+                        <Panel Background="Transparent" Height="35">
+                            <Border Height="35" BorderThickness="0 0 0 1" BorderBrush="#e4e4e7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Border>
+                            <StackPanel Orientation="Horizontal" Spacing="10" Margin="15 0" VerticalAlignment="Center">
+                                <LucideIcon Kind="Hash" Size="16" Foreground="#666666"/>
+                                <TextBlock Foreground="#666666" FontSize="16" Text="{Binding name}"/>
+                            </StackPanel>
+                        </Panel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Expander>
+        <Expander IsExpanded="True" HorizontalAlignment="Stretch" Classes="ChatPanelExpander" Header="Messages (0)"></Expander>
+    </StackPanel>
+    <UserControl.Styles>
+        <Style Selector="Expander.ChatPanelExpander">
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+            <Setter Property="MinHeight" Value="30"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
+        </Style>
+        <Style Selector="Expander.ChatPanelExpander /template/ ToggleButton">
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="MinHeight" Value="35"></Setter>
+            <Setter Property="Foreground" Value="#29779E"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+        </Style>
+        <Style Selector="Expander.ChatPanelExpander /template/ ToggleButton:pointerover">
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="MinHeight" Value="35"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Foreground" Value="#29779E"></Setter>
+        </Style>
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="3 0"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+        <Style Selector="ListBox#ChannelListbox">
+            <Setter Property="Background" Value="Transparent"></Setter>
+        </Style>
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+            <!-- <Setter Property="Background" Value="rgba(0,0,0,0.07)"/>	 -->
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="rgba(0,0,0,0.05)"/>	
+        </Style>
+    </UserControl.Styles>
+</UserControl>

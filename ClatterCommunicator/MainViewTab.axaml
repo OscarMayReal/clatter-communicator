@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="150" d:DesignHeight="50"
              x:Class="ClatterCommunicator.MainViewTab">
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" Spacing="10">
+    <StackPanel Background="Transparent" Orientation="Horizontal" VerticalAlignment="Stretch" Spacing="10">
         <LucideIcon Name="Icon" Kind="MessageSquare" Size="16" Foreground="#666666"/>
         <TextBlock VerticalAlignment="Center" FontSize="16" Name="TabName" Foreground="#666666">Chat</TextBlock>
     </StackPanel>
