@@ -7,6 +7,15 @@
                mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
                x:Class="ClatterCommunicator.MainView">
     <StackPanel EffectiveViewportChanged="MainPanelInner_OnEffectiveViewportChanged" Name="MainPanelInner" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Menu Background="#0079A2" DockPanel.Dock="Top">
+            <MenuItem Classes="MenuBarItem" Header="File" Foreground="#DCF3FF">
+                <MenuItem Header="Exit"/>
+                <MenuItem Header="Settings"/>
+            </MenuItem>
+            <MenuItem Classes="MenuBarItem" Header="Session" Foreground="#DCF3FF">
+                <MenuItem Header="Sign Out" Name="SignOutMenuItem" Click="SignOutMenuItem_OnClick"/>
+            </MenuItem>
+        </Menu>
         <Panel HorizontalAlignment="Stretch" Height="80">
             <StackPanel Orientation="Horizontal" Name="UserHeader" Background="#fafafa" >
                 <Border HorizontalAlignment="Left" Name="UserImageBorderHolder" Height="45" Width="45">
@@ -34,6 +43,12 @@
         <clatterCommunicator:DirectoryPanel Name="DirectoryPanel" IsVisible="False"/>
     </StackPanel>
     <UserControl.Styles>
+        <Style Selector="MenuItem:pointerover.MenuBarItem /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="#DCF3FF" />
+        </Style>
+        <Style Selector="MenuItem:focused.MenuBarItem /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="#DCF3FF" />
+        </Style>
         <Style Selector="Border#UserHeaderBorder">
             <Setter Property="BorderThickness" Value="0 0 0 1"></Setter>
             <Setter Property="BorderBrush" Value="#e4e4e7"></Setter>

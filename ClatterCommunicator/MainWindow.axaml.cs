@@ -37,4 +37,10 @@ public partial class MainWindow : Window
         this.LoginView.IsVisible = false;
         this.MainView.IsVisible = true;
     }
+
+    private void MainView_OnonLogout(object? sender, EventArgs e)
+    {
+        this.LoginView.IsVisible = true;
+        this.MainView.IsVisible = false;
+    }
 }

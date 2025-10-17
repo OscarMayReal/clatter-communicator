@@ -7,6 +7,7 @@ using AsyncImageLoader;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
@@ -22,13 +23,13 @@ public partial class MainView : UserControl
         InitializeComponent();
     }
 
-    private async Task<Workspace> ListWorkspace(string token)
+    private async Task<Workspace> ListWorkspace(string token, string url)
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri("https://beta.clatter.work/api/auth/organization/get-full-organization"),
+            RequestUri = new Uri($"{url}/api/auth/organization/get-full-organization"),
             Headers =
             {
                 { "Authorization", $"Bearer {token}" }
@@ -45,9 +46,9 @@ public partial class MainView : UserControl
         }
     }
 
-    private async void SetWorkspaceTitle(String token)
+    private async void SetWorkspaceTitle(String token, String url)
     {
-        Workspace workspace = await ListWorkspace(token);
+        Workspace workspace = await ListWorkspace(token, url);
         this.StatusTextBlock.Text = workspace.name;
     }
 
@@ -70,9 +71,11 @@ public partial class MainView : UserControl
                 Bitmap bi = new Bitmap(stream);
                 this.UserImage.Source = bi;
             }
-            SetWorkspaceTitle(decodedjson.token);
+            SetWorkspaceTitle(decodedjson.token, decodedjson.url);
         }
     }
+    
+    public event EventHandler onLogout;
 
     private void ChatTab_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
@@ -90,5 +93,10 @@ public partial class MainView : UserControl
         this.ChatTab.state = "inactive";
         this.DirectoryTab.state = "active";
         this.MeetingsTab.state = "inactive";
+    }
+
+    private void SignOutMenuItem_OnClick(object? sender, RoutedEventArgs e)
+    {
+        this.onLogout?.Invoke(this, EventArgs.Empty);
     }
 }

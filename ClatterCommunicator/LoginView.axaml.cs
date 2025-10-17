@@ -23,6 +23,7 @@ public partial class LoginView : UserControl
         public bool redirect { get; set; }
         public string token { get; set; }
         public User user { get; set; }
+        public string url { get; set; }
     }
 
     public class User
@@ -66,12 +67,14 @@ public partial class LoginView : UserControl
         {
             string json = await response.Content.ReadAsStringAsync();
             LoginRootObject? decodedjson = JsonSerializer.Deserialize<LoginRootObject>(json);
+            decodedjson.url = url;
+            string newjson = JsonSerializer.Serialize<LoginRootObject>(decodedjson);
             if (File.Exists("./clatter-data/user.json"))
             {
                 File.Delete("./clatter-data/user.json");
             }
             FileStream fileopen = File.OpenWrite("./clatter-data/user.json");
-            byte[] bytes = new UTF8Encoding(true).GetBytes(json);
+            byte[] bytes = new UTF8Encoding(true).GetBytes(newjson);
             fileopen.Write(bytes, 0, bytes.Length);
             fileopen.Close();
             var newhttpclient = new HttpClient();
@@ -82,7 +85,7 @@ public partial class LoginView : UserControl
             var newrequest = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri("https://beta.clatter.work/api/auth/organization/set-active"),
+                RequestUri = new Uri(url + "/api/auth/organization/set-active"),
                 Content = new StringContent("{\"organizationSlug\":\"" + username.Split("::")[1] + "\"}")
                 {
                     Headers =
@@ -117,6 +120,7 @@ public partial class LoginView : UserControl
             LoginRootObject? decodedjson = JsonSerializer.Deserialize<LoginRootObject>(json);
             this.SignInPanel.IsVisible = false;
             this.ExistingUsernameBox.Text = decodedjson.user.email;
+            this.ExistingUrlBox.Text = decodedjson.url;
             this.ExistingSessionPanel.IsVisible = true;
         }
     }

@@ -13,8 +13,18 @@ public partial class ChatWindow : Window
 {
     
     private Channel channel { get; set; }
-    
+    private SocketIOClient.SocketIO client { get; set; }
     private Message[] messages { get; set; }
+    public class SocketSendMessageObject
+    {
+        public string room { get; set; }
+        public string content { get; set; }
+        public string type { get; set; }
+        public string userId { get; set; }
+        public string sendername { get; set; }
+        public string method { get; set; }
+        public string token { get; set; }
+    }
     public ChatWindow(Channel channel)
     {
         InitializeComponent();
@@ -23,18 +33,34 @@ public partial class ChatWindow : Window
         this.MessageInputTextBox.Watermark = $"Send a message to #{channel.name}";
         this.channel = channel;
         loadMessages();
-        setupSocketConnection();
     }
 
-    public async void setupSocketConnection()
+    public async void setupSocketConnection(string url)
     {
-        SocketIOClient.SocketIO client = new SocketIOClient.SocketIO("https://beta.clatter.work");
-        client.On("clatter.channel.join.response", response =>
+        this.client = new SocketIOClient.SocketIO(url);
+        this.client.On("clatter.channel.join.response", response =>
         {
             Console.WriteLine("connected");
         });
-        await client.ConnectAsync();
-        await client.EmitAsync("clatter.channel.join", "{\"room\":\"" + this.channel.id + "\"}");
+        await this.client.ConnectAsync();
+        await this.client.EmitAsync("clatter.channel.join", "{\"room\":\"" + this.channel.id + "\"}");
+    }
+
+    public async void SendMessage(string message)
+    {
+        StreamReader file = File.OpenText("./clatter-data/user.json");
+        string json = file.ReadToEnd();
+        LoginView.LoginRootObject? decodedjson = JsonSerializer.Deserialize<LoginView.LoginRootObject>(json);
+        await this.client.EmitAsync("clatter.channel.message.send", JsonSerializer.Serialize(new SocketSendMessageObject
+        {
+            room = this.channel.id,
+            content = message,
+            type = "text",
+            userId = decodedjson.user.id,
+            sendername = decodedjson.user.name,
+            method = "modern",
+            token = decodedjson.token
+        }));
     }
 
     public async void loadMessages()
@@ -68,6 +94,7 @@ public partial class ChatWindow : Window
         }
         this.MessageArea.ItemsSource = messages;
         this.messages = messages;
+        setupSocketConnection(decodedjson.url);
     }
 
     private void TitleBarDraggable_OnPointerPressed(object? sender, PointerPressedEventArgs e)
@@ -88,5 +115,11 @@ public partial class ChatWindow : Window
     private void TitleBarResizeButton_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         this.WindowState = this.WindowState == WindowState.FullScreen ? WindowState.Normal : WindowState.FullScreen;
+    }
+
+    private void SendButton_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        SendMessage(this.MessageInputTextBox.Text);
+        this.MessageInputTextBox.Text = string.Empty;
     }
 }

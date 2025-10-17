@@ -28,7 +28,7 @@ public class Workspace
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri("https://beta.clatter.work/api/channels/list"),
+            RequestUri = new Uri(decodedjson.url + "/api/channels/list"),
             Headers =
             {
                 {"Authorization", $"Bearer {decodedjson?.token}"}
@@ -51,7 +51,7 @@ public class Workspace
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri("https://beta.clatter.work/api/channels/list"),
+            RequestUri = new Uri(decodedjson.url + "/api/channels/list"),
             Headers =
             {
                 {"Authorization", $"Bearer {decodedjson?.token}"}

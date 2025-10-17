@@ -56,7 +56,7 @@
                                 </Panel>
                                 <Border Name="MessageInputBoxBorder"/>
                             </Panel>
-                            <Border Width="40" Height="40" HorizontalAlignment="Right" Name="SendButton">
+                            <Border PointerReleased="SendButton_OnPointerReleased" Width="40" Height="40" HorizontalAlignment="Right" Name="SendButton">
                                 <LucideIcon Size="18" Foreground="#2A779E" Kind="SendHorizontal"></LucideIcon>
                             </Border>
                         </Panel>    

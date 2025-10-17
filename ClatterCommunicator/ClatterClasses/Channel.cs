@@ -28,7 +28,7 @@ public class Channel
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri("https://beta.clatter.work/api/channel/" + this.id + "/messages/list"),
+            RequestUri = new Uri(decodedjson.url + "/api/channel/" + this.id + "/messages/list"),
             Headers =
             {
                 {"Authorization", $"Bearer {decodedjson?.token}"}
