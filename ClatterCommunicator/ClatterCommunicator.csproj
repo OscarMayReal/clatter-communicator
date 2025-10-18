@@ -10,6 +10,9 @@
     </PropertyGroup>
     <ItemGroup>
         <AvaloniaResource Include="Assets/**" />
+        <Content Include="Assets/**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Alba.Avalonia.FlexPanel" Version="0.5.3" />
@@ -25,11 +28,16 @@
         </PackageReference>
         <PackageReference Include="AvaloniaInside.Shell" Version="1.3.2.2" />
         <PackageReference Include="C-sharp-livekit-sdk" Version="1.0.7" />
+        <PackageReference Include="LibVLCSharp" Version="3.9.4" />
         <PackageReference Include="Lucide.Avalonia" Version="0.1.44" />
         <PackageReference Include="MessageBox.Avalonia" Version="3.2.0" />
+        <PackageReference Include="NetCoreAudio" Version="2.0.0" />
         <PackageReference Include="ReactiveUI.Avalonia" Version="11.3.0" />
         <PackageReference Include="RouteNav.Avalonia" Version="1.1.0.216" />
         <PackageReference Include="SocketIOClient" Version="3.1.2" />
+        <PackageReference Include="SoundFlow" Version="1.2.1" />
+        <PackageReference Include="VideoLAN.LibVLC.Mac" Version="3.1.3.1" />
+        <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.21" />
     </ItemGroup>
     <ItemGroup>
       <Compile Update="ChatWindow.axaml.cs">

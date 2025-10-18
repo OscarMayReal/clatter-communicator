@@ -20,7 +20,7 @@
             <StackPanel Orientation="Horizontal" Name="UserHeader" Background="#fafafa" >
                 <Border HorizontalAlignment="Left" Name="UserImageBorderHolder" Height="45" Width="45">
                     <Panel VerticalAlignment="Center">
-                        <Image Name="UserImage" Height="45" Width="45"/>
+                        <Image Source="Assets/images/userimage.png" Name="UserImage" Height="45" Width="45"/>
                         <Border Name="UserImageBorder" Height="45" Width="45" />
                     </Panel>
                 </Border>

@@ -74,7 +74,7 @@ public partial class MainView : UserControl
                     this.UserImage.Source = bi;
                 }
             }
-             SetWorkspaceTitle(decodedjson.token, decodedjson.url);
+            SetWorkspaceTitle(decodedjson.token, decodedjson.url);
         }
     }
     

@@ -1,23 +1,27 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Timers;
 using Avalonia.Controls;
+using Avalonia.Data.Converters;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Threading;
 using ClatterCommunicator.ClatterClasses;
 using Livekit;
+using NetCoreAudio;
 
 namespace ClatterCommunicator;
 
 public partial class ChatWindow : Window
 {
-    
+    private Player audioPlayer { get; set; }
     private Channel channel { get; set; }
     private SocketIOClient.SocketIO client { get; set; }
     private ObservableCollection<Message> messages { get; set; }
@@ -55,6 +59,7 @@ public partial class ChatWindow : Window
         this.MessageInputTextBox.Watermark = $"Send a message to #{channel.name}";
         this.channel = channel;
         loadMessages();
+        audioPlayer = new Player();
     }
 
     public async void setupSocketConnection(string url)
@@ -99,6 +104,14 @@ public partial class ChatWindow : Window
             }
             Console.WriteLine(newmessage.sendername);
             this.messages.Add(newmessage);
+            if (newmessage.sender != this.userid && !IsActive)
+            {
+                audioPlayer.Play(Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), @"Assets/audio/notify.mp3"));
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    new Notification(newmessage, "#" + this.channel.name, this).Show();
+                });
+            }
             // Console.WriteLine(this.messages[this.messages.Length - 1].content);
             // this.MessageArea.ItemsSource = this.messages;
         });
@@ -196,5 +209,14 @@ public partial class ChatWindow : Window
     {
         SendMessage(this.MessageInputTextBox.Text);
         this.MessageInputTextBox.Text = string.Empty;
+    }
+
+    private void MessageInputTextBox_OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
+        {
+            SendMessage(this.MessageInputTextBox.Text);
+            this.MessageInputTextBox.Text = string.Empty;
+        }
     }
 }
