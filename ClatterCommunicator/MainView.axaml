@@ -7,7 +7,7 @@
                mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
                x:Class="ClatterCommunicator.MainView">
     <StackPanel EffectiveViewportChanged="MainPanelInner_OnEffectiveViewportChanged" Name="MainPanelInner" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <Menu Background="#0079A2" DockPanel.Dock="Top">
+        <Menu Background="#29779E" DockPanel.Dock="Top">
             <MenuItem Classes="MenuBarItem" Header="File" Foreground="#DCF3FF">
                 <MenuItem Header="Exit"/>
                 <MenuItem Header="Settings"/>

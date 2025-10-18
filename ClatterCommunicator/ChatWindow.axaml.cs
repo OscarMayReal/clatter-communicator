@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -25,6 +26,21 @@ public partial class ChatWindow : Window
         public string method { get; set; }
         public string token { get; set; }
     }
+    
+    public class IncomingSocketmessage
+    {
+        public string room { get; set; }
+        public string content { get; set; }
+        public string type { get; set; }
+        public string userId { get; set; }
+        public string sendername { get; set; }
+        public string method { get; set; }
+        public string token { get; set; }
+        public string DateCreated { get; set; }
+        public string id { get; set; }
+    }
+
+
     public ChatWindow(Channel channel)
     {
         InitializeComponent();
@@ -42,6 +58,28 @@ public partial class ChatWindow : Window
         {
             Console.WriteLine("connected");
         });
+        this.client.On("clatter.channel.message.recieve", message =>
+        {
+            Console.WriteLine(message);
+            string recievedMessageString = message.GetValue<String>();
+            IncomingSocketmessage recievedMessage = JsonSerializer.Deserialize<IncomingSocketmessage>(recievedMessageString);
+            Console.WriteLine(recievedMessage.content);
+            Message newmessage = new Message
+            {
+                messagetype = recievedMessage.type,
+                content = recievedMessage.content,
+                sendername = recievedMessage.sendername,
+                sender = recievedMessage.userId,
+                DateCreated = recievedMessage.DateCreated,
+                id = recievedMessage.id,
+                parentid = recievedMessage.room
+            };
+            Console.WriteLine(newmessage.sendername);
+            this.messages = this.messages.Append(newmessage).ToArray();
+            Console.WriteLine(this.messages[this.messages.Length - 1].content);
+            // this.MessageArea.ItemsSource = this.messages;
+            this.MessageArea.ItemsSource = null;
+        });
         await this.client.ConnectAsync();
         await this.client.EmitAsync("clatter.channel.join", "{\"room\":\"" + this.channel.id + "\"}");
     }
@@ -50,7 +88,7 @@ public partial class ChatWindow : Window
     {
         StreamReader file = File.OpenText("./clatter-data/user.json");
         string json = file.ReadToEnd();
-        LoginView.LoginRootObject? decodedjson = JsonSerializer.Deserialize<LoginView.LoginRootObject>(json);
+        LoginView.LoginRootObject?  decodedjson = JsonSerializer.Deserialize<LoginView.LoginRootObject>(json);
         await this.client.EmitAsync("clatter.channel.message.send", JsonSerializer.Serialize(new SocketSendMessageObject
         {
             room = this.channel.id,

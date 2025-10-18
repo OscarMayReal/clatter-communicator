@@ -26,7 +26,11 @@ public partial class ChatPanel : UserControl
 
     private void ChannelListbox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        Channel item = this.ChannelListbox.SelectedItems[0]  as Channel;
-        new ChatWindow(item).Show();
+        if (this.ChannelListbox.SelectedItems.Count > 0)
+        {
+            Channel item = this.ChannelListbox.SelectedItems[0]  as Channel;
+            new ChatWindow(item).Show();
+            this.ChannelListbox.UnselectAll();
+        }
     }
 }
