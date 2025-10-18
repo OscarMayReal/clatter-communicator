@@ -1,10 +1,15 @@
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
+using System.Timers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Threading;
 using ClatterCommunicator.ClatterClasses;
 using Livekit;
 
@@ -15,7 +20,8 @@ public partial class ChatWindow : Window
     
     private Channel channel { get; set; }
     private SocketIOClient.SocketIO client { get; set; }
-    private Message[] messages { get; set; }
+    private ObservableCollection<Message> messages { get; set; }
+    private string userid { get; set; }
     public class SocketSendMessageObject
     {
         public string room { get; set; }
@@ -74,11 +80,27 @@ public partial class ChatWindow : Window
                 id = recievedMessage.id,
                 parentid = recievedMessage.room
             };
+            if (this.messages[this.messages.Count - 1].sender == newmessage.sender)
+            {
+                newmessage.HideInfo = true;
+            }
+
+            if (newmessage.sender == this.userid)
+            {
+                newmessage.isOwnMessage = FlowDirection.RightToLeft;
+                newmessage.background = Brush.Parse("#0079A2");
+                newmessage.foreground = Brush.Parse("#ffffff");
+            }
+            else
+            {
+                newmessage.isOwnMessage = FlowDirection.LeftToRight;
+                newmessage.background = Brush.Parse("#9CECFF");
+                newmessage.foreground = Brush.Parse("#666666");
+            }
             Console.WriteLine(newmessage.sendername);
-            this.messages = this.messages.Append(newmessage).ToArray();
-            Console.WriteLine(this.messages[this.messages.Length - 1].content);
+            this.messages.Add(newmessage);
+            // Console.WriteLine(this.messages[this.messages.Length - 1].content);
             // this.MessageArea.ItemsSource = this.messages;
-            this.MessageArea.ItemsSource = null;
         });
         await this.client.ConnectAsync();
         await this.client.EmitAsync("clatter.channel.join", "{\"room\":\"" + this.channel.id + "\"}");
@@ -106,6 +128,7 @@ public partial class ChatWindow : Window
         StreamReader file = File.OpenText("./clatter-data/user.json");
         string json = file.ReadToEnd();
         LoginView.LoginRootObject? decodedjson = JsonSerializer.Deserialize<LoginView.LoginRootObject>(json);
+        this.userid = decodedjson.user.id;
         Message[] messages = await channel.GetMessages();
         for (var i = 0; i < messages.Length; i++)
         {
@@ -130,9 +153,23 @@ public partial class ChatWindow : Window
                 messages[i].foreground = Brush.Parse("#666666");
             }
         }
-        this.MessageArea.ItemsSource = messages;
-        this.messages = messages;
+        this.messages = new ObservableCollection<Message>(messages);
+        this.messages.CollectionChanged += (s, e) =>
+        {
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                this.MessageArea.ScrollIntoView(this.messages.Count - 1);
+            });
+        };
+        this.MessageArea.ItemsSource = this.messages;
+        ScrollChatToBottom();
         setupSocketConnection(decodedjson.url);
+    }
+
+    private async void ScrollChatToBottom()
+    {
+        await Task.Run(()=>Task.Delay(100));
+        this.MessageArea.ScrollIntoView(this.messages.Count - 1);
     }
 
     private void TitleBarDraggable_OnPointerPressed(object? sender, PointerPressedEventArgs e)

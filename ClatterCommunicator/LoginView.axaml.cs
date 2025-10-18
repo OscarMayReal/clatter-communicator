@@ -118,10 +118,18 @@ public partial class LoginView : UserControl
             StreamReader file = File.OpenText("./clatter-data/user.json");
             string json = file.ReadToEnd();
             LoginRootObject? decodedjson = JsonSerializer.Deserialize<LoginRootObject>(json);
-            this.SignInPanel.IsVisible = false;
-            this.ExistingUsernameBox.Text = decodedjson.user.email;
-            this.ExistingUrlBox.Text = decodedjson.url;
-            this.ExistingSessionPanel.IsVisible = true;
+            try
+            {
+                this.SignInPanel.IsVisible = false;
+                this.ExistingUsernameBox.Text = decodedjson.user.email;
+                this.ExistingUrlBox.Text = decodedjson.url;
+                this.ExistingSessionPanel.IsVisible = true;
+            }
+            catch
+            {
+                this.SignInPanel.IsVisible = true;
+                this.ExistingSessionPanel.IsVisible = false;
+            }
         }
     }
 
