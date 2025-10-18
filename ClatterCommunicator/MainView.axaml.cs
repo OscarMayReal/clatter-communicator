@@ -65,13 +65,16 @@ public partial class MainView : UserControl
             LoginView.LoginRootObject? decodedjson = JsonSerializer.Deserialize<LoginView.LoginRootObject>(json);
             this.UsernameTextBlock.Text = decodedjson?.user.name;
             //this.StatusTextBlock.Text = decodedjson?.user.email;
-            byte[] binaryData = Convert.FromBase64String(decodedjson.user.image.Split("data:image/png;base64,")[1]);
-            using (MemoryStream stream = new MemoryStream(binaryData))
+            if (decodedjson.user.image != null)
             {
-                Bitmap bi = new Bitmap(stream);
-                this.UserImage.Source = bi;
+                byte[] binaryData = Convert.FromBase64String(decodedjson.user.image.Split("data:image/png;base64,")[1]);
+                using (MemoryStream stream = new MemoryStream(binaryData))
+                {
+                    Bitmap bi = new Bitmap(stream);
+                    this.UserImage.Source = bi;
+                }
             }
-            SetWorkspaceTitle(decodedjson.token, decodedjson.url);
+             SetWorkspaceTitle(decodedjson.token, decodedjson.url);
         }
     }
     
