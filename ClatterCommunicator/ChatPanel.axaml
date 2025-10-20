@@ -22,7 +22,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Expander>
-        <Expander IsExpanded="True" HorizontalAlignment="Stretch" Classes="ChatPanelExpander" Header="Messages (0)"></Expander>
+        <!-- <Expander IsExpanded="True" HorizontalAlignment="Stretch" Classes="ChatPanelExpander" Header="Messages (0)"></Expander> -->
     </StackPanel>
     <UserControl.Styles>
         <Style Selector="Expander.ChatPanelExpander">

@@ -7,15 +7,15 @@
                mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
                x:Class="ClatterCommunicator.MainView">
     <StackPanel EffectiveViewportChanged="MainPanelInner_OnEffectiveViewportChanged" Name="MainPanelInner" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <Menu Background="#29779E" DockPanel.Dock="Top">
-            <MenuItem Classes="MenuBarItem" Header="File" Foreground="#DCF3FF">
-                <MenuItem Header="Exit"/>
-                <MenuItem Header="Settings"/>
-            </MenuItem>
-            <MenuItem Classes="MenuBarItem" Header="Session" Foreground="#DCF3FF">
-                <MenuItem Header="Sign Out" Name="SignOutMenuItem" Click="SignOutMenuItem_OnClick"/>
-            </MenuItem>
-        </Menu>
+        <!-- <Menu Background="#29779E" DockPanel.Dock="Top"> -->
+        <!--     <MenuItem Classes="MenuBarItem" Header="File" Foreground="#DCF3FF"> -->
+        <!--         <MenuItem Header="Exit"/> -->
+        <!--         <MenuItem Header="Settings"/> -->
+        <!--     </MenuItem> -->
+        <!--     <MenuItem Classes="MenuBarItem" Header="Session" Foreground="#DCF3FF"> -->
+        <!--         <MenuItem Header="Sign Out" Name="SignOutMenuItem" Click="SignOutMenuItem_OnClick"/> -->
+        <!--     </MenuItem> -->
+        <!-- </Menu> -->
         <Panel HorizontalAlignment="Stretch" Height="80">
             <StackPanel Orientation="Horizontal" Name="UserHeader" Background="#fafafa" >
                 <Border HorizontalAlignment="Left" Name="UserImageBorderHolder" Height="45" Width="45">
@@ -34,7 +34,7 @@
         <Panel HorizontalAlignment="Stretch" Height="50">
             <StackPanel Margin="20 0" Orientation="Horizontal" Name="TabsHeader" Background="#ffffff" Spacing="15" HorizontalAlignment="Center">
                 <clatterCommunicator:MainViewTab PointerReleased="ChatTab_OnPointerReleased" Name="ChatTab" state="active" iconSize="16" icon="MessageSquare" label="Chat" />
-                <clatterCommunicator:MainViewTab Name="MeetingsTab" state="inactive" icon="Video" iconSize="20" label="Meetings" />
+                <!-- <clatterCommunicator:MainViewTab Name="MeetingsTab" state="inactive" icon="Video" iconSize="20" label="Meetings" /> -->
                 <clatterCommunicator:MainViewTab PointerReleased="DirectoryTab_OnPointerReleased" Name="DirectoryTab" state="inactive" icon="BookUser" iconSize="16" label="Directory" />
             </StackPanel>
             <Border Name="TabsHeaderBorder" Height="50" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>

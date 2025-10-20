@@ -1,4 +1,5 @@
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
 namespace ClatterCommunicator.ClatterClasses;
 
@@ -20,4 +21,5 @@ public class Message
     public IBrush background { get; set; }
     public IBrush foreground { get; set; }
     public bool HideInfo {get; set;}
+    public Bitmap userImage { get; set; }
 }

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Text.Json;
@@ -12,6 +13,8 @@ using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Threading;
 using ClatterCommunicator.ClatterClasses;
 using Livekit;
@@ -89,7 +92,13 @@ public partial class ChatWindow : Window
             {
                 newmessage.HideInfo = true;
             }
-
+            else
+            {
+                newmessage.userImage = Workspace.members.Where(item =>
+                {
+                    return item.user.id == newmessage.sender;
+                }).First().user.imageBitmap;
+            }
             if (newmessage.sender == this.userid)
             {
                 newmessage.isOwnMessage = FlowDirection.RightToLeft;
@@ -118,6 +127,51 @@ public partial class ChatWindow : Window
         await this.client.ConnectAsync();
         await this.client.EmitAsync("clatter.channel.join", "{\"room\":\"" + this.channel.id + "\"}");
     }
+    
+    public void setImageBitmaps()
+    {
+        for (var i = 0; i < Workspace.members.Length; i++)
+        {
+            if (Workspace.members[i].user.image == null || Workspace.members[i].user.image == String.Empty || !Workspace.members[i].user.image.Contains("data:image/png;base64,"))
+            {
+                Workspace.members[i].user.imageBitmap = new Bitmap(AssetLoader.Open(new Uri("avares://ClatterCommunicator/Assets/images/userimage.png")));
+            }
+            else
+            {
+                Console.WriteLine("img " + Workspace.members[i].user.image.Split("data:image/png;base64,").Length);
+                byte[] binaryData = Convert.FromBase64String(Workspace.members[i].user.image.Split("data:image/png;base64,")[1]);
+                using (MemoryStream stream = new MemoryStream(binaryData))
+                {
+                    Bitmap bi = new Bitmap(stream);
+                    Workspace.members[i].user.imageBitmap = bi;
+                }
+            }
+        }
+    }
+    
+    public Workspace Workspace { get; set; }
+    
+    private async Task<Workspace> ListWorkspace(string token, string url)
+    {
+        var client = new HttpClient();
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri($"{url}/api/auth/organization/get-full-organization"),
+            Headers =
+            {
+                { "Authorization", $"Bearer {token}" }
+            }
+        };
+        using (var response = await client.SendAsync(request))
+        {
+            response.EnsureSuccessStatusCode();
+            var body = await response.Content.ReadAsStringAsync();
+            Workspace workspace = JsonSerializer.Deserialize<Workspace>(body);
+            this.Workspace = workspace;
+            return workspace;
+        }
+    }
 
     public async void SendMessage(string message)
     {
@@ -143,6 +197,8 @@ public partial class ChatWindow : Window
         LoginView.LoginRootObject? decodedjson = JsonSerializer.Deserialize<LoginView.LoginRootObject>(json);
         this.userid = decodedjson.user.id;
         Message[] messages = await channel.GetMessages();
+        await ListWorkspace(decodedjson.token, decodedjson.url);
+        setImageBitmaps();
         for (var i = 0; i < messages.Length; i++)
         {
             if (i != 0)
@@ -150,7 +206,21 @@ public partial class ChatWindow : Window
                 if (messages[i].sender == messages[i - 1].sender)
                 {
                     messages[i].HideInfo = true;
+                } 
+                else
+                {
+                    messages[i].userImage = Workspace.members.Where(item =>
+                    {
+                        return item.user.id == messages[i].sender;
+                    }).First().user.imageBitmap;
                 }
+            }
+            else
+            {
+                messages[i].userImage = Workspace.members.Where(item =>
+                {
+                    return item.user.id == messages[i].sender;
+                }).First().user.imageBitmap;
             }
 
             if (decodedjson.user.id == messages[i].sender)

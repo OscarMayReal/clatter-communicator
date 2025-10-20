@@ -11,6 +11,7 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using ClatterCommunicator.ClatterClasses;
 using RouteNav.Avalonia;
 
@@ -22,6 +23,8 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
     }
+    
+    public Workspace Workspace { get; set; }
 
     private async Task<Workspace> ListWorkspace(string token, string url)
     {
@@ -42,6 +45,7 @@ public partial class MainView : UserControl
             Workspace workspace = JsonSerializer.Deserialize<Workspace>(body);
             this.DirectoryPanel.UpdateDirectoryList(workspace?.members);
             this.ChatPanel.SetChannels(workspace);
+            this.Workspace = workspace;
             return workspace;
         }
     }
@@ -50,6 +54,7 @@ public partial class MainView : UserControl
     {
         Workspace workspace = await ListWorkspace(token, url);
         this.StatusTextBlock.Text = workspace.name;
+        // setImageBitmaps();
     }
 
     private void MainPanelInner_OnEffectiveViewportChanged(object? sender, EffectiveViewportChangedEventArgs e)
@@ -77,6 +82,27 @@ public partial class MainView : UserControl
             SetWorkspaceTitle(decodedjson.token, decodedjson.url);
         }
     }
+
+    public void setImageBitmaps()
+    {
+        for (var i = 0; i < Workspace.members.Length; i++)
+        {
+            Console.WriteLine("img " + Workspace.members[i].user.image);
+            if (Workspace.members[i].user.image == null)
+            {
+                Workspace.members[i].user.imageBitmap = new Bitmap(AssetLoader.Open(new Uri("avares://ClatterCommunicator/Assets/images/userimage.png")));
+            }
+            else
+            {
+                byte[] binaryData = Convert.FromBase64String(Workspace.members[i].user.image.Split("data:image/png;base64,")[1]);
+                using (MemoryStream stream = new MemoryStream(binaryData))
+                {
+                    Bitmap bi = new Bitmap(stream);
+                    Workspace.members[i].user.imageBitmap = bi;
+                }
+            }
+        }
+    }
     
     public event EventHandler onLogout;
 
@@ -86,7 +112,7 @@ public partial class MainView : UserControl
         this.ChatPanel.IsVisible = true;
         this.ChatTab.state = "active";
         this.DirectoryTab.state = "inactive";
-        this.MeetingsTab.state = "inactive";
+        // this.MeetingsTab.state = "inactive";
     }
 
     private void DirectoryTab_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
@@ -95,7 +121,7 @@ public partial class MainView : UserControl
         this.ChatPanel.IsVisible = false;
         this.ChatTab.state = "inactive";
         this.DirectoryTab.state = "active";
-        this.MeetingsTab.state = "inactive";
+        // this.MeetingsTab.state = "inactive";
     }
 
     private void SignOutMenuItem_OnClick(object? sender, RoutedEventArgs e)

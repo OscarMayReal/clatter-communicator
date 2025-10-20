@@ -40,22 +40,25 @@
                         <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="MessageArea">
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type clatterClasses:Message}">
-                                    <StackPanel MaxWidth="{Binding $parent[ListBox].Presenter.Panel.Bounds.Width}" FlowDirection="{Binding isOwnMessage}" Margin=" 0 10 0 0" Spacing="10" Orientation="Horizontal">
-                                        <Border IsVisible="{Binding !HideInfo}" BorderBrush="#e4e4e7" BorderThickness="1">
-                                            <Image Width="38" Height="38" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Assets/images/userimage.png"/>
-                                        </Border>
-                                        <Border Width="40" IsVisible="{Binding HideInfo}"></Border>
-                                        <StackPanel HorizontalAlignment="Stretch" Background="{Binding background}">
-                                            <TextBlock TextAlignment="{Binding isOwnMessage}" TextWrapping="Wrap" MinHeight="20" FontSize="16" Margin="10" Foreground="{Binding foreground}" Text="{Binding content}"/>
-                                            <!-- <NumericUpDown> -->
-                                            <!--     <NumericUpDown.Value> -->
-                                            <!--         <MultiBinding Converter="{StaticResource MathMultiConverter}" Mode="OneWay"> -->
-                                            <!--             <Binding Source="{StaticResource subtract}"/> -->
-                                            <!--             <Binding Source="{Binding $parent[ListBox].Presenter.Panel.Bounds.Width}"/> -->
-                                            <!--             <Binding Source="{StaticResource ChatBubbleProfileWidth}"/> -->
-                                            <!--         </MultiBinding> -->
-                                            <!--     </NumericUpDown.Value> -->
-                                            <!-- </NumericUpDown> -->
+                                    <StackPanel FlowDirection="{Binding isOwnMessage}">
+                                        <TextBlock Foreground="#666666" IsVisible="{Binding !HideInfo}" Margin="50 10 0 10" Text="{Binding sendername}"/>
+                                        <StackPanel MaxWidth="{Binding $parent[ListBox].Presenter.Panel.Bounds.Width}" FlowDirection="{Binding isOwnMessage}" Margin=" 0 0 0 10" Spacing="10" Orientation="Horizontal">
+                                            <Border IsVisible="{Binding !HideInfo}" BorderBrush="#e4e4e7" BorderThickness="1">
+                                                <Image Width="38" Height="38" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding userImage}"/>
+                                            </Border>
+                                            <Border Width="40" IsVisible="{Binding HideInfo}"></Border>
+                                            <StackPanel HorizontalAlignment="Stretch" Background="{Binding background}">
+                                                <TextBlock TextAlignment="{Binding isOwnMessage}" TextWrapping="Wrap" MinHeight="20" FontSize="16" Margin="10" Foreground="{Binding foreground}" Text="{Binding content}"/>
+                                                <!-- <NumericUpDown> -->
+                                                <!--     <NumericUpDown.Value> -->
+                                                <!--         <MultiBinding Converter="{StaticResource MathMultiConverter}" Mode="OneWay"> -->
+                                                <!--             <Binding Source="{StaticResource subtract}"/> -->
+                                                <!--             <Binding Source="{Binding $parent[ListBox].Presenter.Panel.Bounds.Width}"/> -->
+                                                <!--             <Binding Source="{StaticResource ChatBubbleProfileWidth}"/> -->
+                                                <!--         </MultiBinding> -->
+                                                <!--     </NumericUpDown.Value> -->
+                                                <!-- </NumericUpDown> -->
+                                            </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>
