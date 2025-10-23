@@ -17,7 +17,7 @@ Just download the latest release from the releases page and run it.
 
 ## Setting up a clatter account
 
-You can sign up for a clatter account at https://clatter.work
+You can sign up for a clatter account at https://clatter.work (or beta.clatter.work if clatter.work is unavailable)
 
 Once you have signed up, you can create a workspace or join an existing one.
 
@@ -37,7 +37,7 @@ in the clatter client, click the All Channels tab in the sidebar. click the plus
 
 Open Clatter Communicator, if you have not signed in before, you will be prompted to sign in.
 
-URL: https://clatter.work (replace with your own URL if you are using a self-hosted server)
+URL: https://clatter.work (replace with your own URL if you are using a self-hosted server, or beta.clatter.work if you signed up there)
 
 Username: your email :: workspace slug (for example: johndoe@example.com::myworkspace)
 
